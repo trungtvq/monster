@@ -1,26 +1,39 @@
-import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import 'typeface-roboto';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+import React, { Component } from 'react';
+
+//context
+import Client from "./Client"
+
+//redux
+import { createStore, applyMiddleware } from 'redux'
+import thunkMiddleware from 'redux-thunk'
+import { createLogger } from 'redux-logger'
+import rootReducer from './reducers'
+import { Provider } from 'react-redux'
+import { composeWithDevTools } from 'redux-devtools-extension';
+const loggerMiddleware = createLogger()
+
+
+function configureStore(preloadedState) {
+  return createStore(
+    rootReducer,
+    preloadedState,
+    composeWithDevTools(
+    applyMiddleware(thunkMiddleware))
+  )
 }
 
+export const store = configureStore()
+export class App extends Component {
+
+  render() {   
+    return (
+     <Provider store={store}>
+        <Client />
+    </Provider>   
+)}} 
 export default App;
