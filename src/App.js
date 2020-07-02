@@ -5,35 +5,24 @@ import 'typeface-roboto';
 
 import React, { Component } from 'react';
 
+import AppRouter from "./AppRouter"
+
 //context
-import Client from "./Client"
+import { ThemeContextProvider } from './context/ThemeContext';
+import { AuthContextProvider } from './context/AuthContext';
+import { CounterContextProvider } from './context/CounterContext';
 
-//redux
-import { createStore, applyMiddleware } from 'redux'
-import thunkMiddleware from 'redux-thunk'
-import { createLogger } from 'redux-logger'
-import rootReducer from './reducers'
-import { Provider } from 'react-redux'
-import { composeWithDevTools } from 'redux-devtools-extension';
-const loggerMiddleware = createLogger()
-
-
-function configureStore(preloadedState) {
-  return createStore(
-    rootReducer,
-    preloadedState,
-    composeWithDevTools(
-    applyMiddleware(thunkMiddleware))
-  )
-}
-
-export const store = configureStore()
 export class App extends Component {
-
-  render() {   
+  render() {
     return (
-     <Provider store={store}>
-        <Client />
-    </Provider>   
-)}} 
+      <AuthContextProvider value={true}>
+        <ThemeContextProvider>
+          <CounterContextProvider>
+            <AppRouter />
+          </CounterContextProvider>
+        </ThemeContextProvider>
+      </AuthContextProvider>
+    )
+  }
+}
 export default App;
