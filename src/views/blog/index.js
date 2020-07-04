@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
@@ -15,7 +15,9 @@ import Footer from '../../component/footer';
 import post1 from './blog-post.1.md';
 import post2 from './blog-post.2.md';
 import post3 from './blog-post.3.md';
-
+import SpacingGrid from '../../component/list/spacing_grid';
+import {TooltipComponent, PopoverComponent, OverlayComponent} from '../../component/button/overlay';
+import {Popover, Button, Modal} from 'react-bootstrap'
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
     marginTop: theme.spacing(3),
@@ -89,32 +91,50 @@ const sidebar = {
   ],
 };
 
+const popover = (
+  <Popover id="popover-basic">
+    <Popover.Title as="h3">Popover right</Popover.Title>
+    <Popover.Content>
+      And here's some <strong>amazing</strong> content. It's very engaging.
+        right?
+      </Popover.Content>
+  </Popover>
+);
+const btn = (
+  <Button variant="success">Hover me to see</Button>
+)
 export default function Blog() {
   const classes = useStyles();
+  const [show, setShow] = useState(false);
 
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   return (
     <React.Fragment>
+      <Header />
+      <TooltipComponent />
+      <PopoverComponent placement="right"/>
+      <OverlayComponent component={btn} render={popover} />
+      <Button variant="primary" onClick={handleShow}>
+        Launch demo modal
+      </Button>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <CssBaseline />
-      <Container maxWidth="lg">
-        <Header title="Blog" sections={sections} />
-        <main>
-          <MainFeaturedPost post={mainFeaturedPost} />
-          <Grid container spacing={4}>
-            {featuredPosts.map((post) => (
-              <FeaturedPost key={post.title} post={post} />
-            ))}
-          </Grid>
-          <Grid container spacing={5} className={classes.mainGrid}>
-            <Main title="From the firehose" posts={posts} />
-            <Sidebar
-              title={sidebar.title}
-              description={sidebar.description}
-              archives={sidebar.archives}
-              social={sidebar.social}
-            />
-          </Grid>
-        </main>
-      </Container>
+      <div>
+      </div>
       <Footer title="Footer" description="Trungtvq" />
     </React.Fragment>
   );

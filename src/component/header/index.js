@@ -1,80 +1,69 @@
-import React, { Component } from "react";
-import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBDropdown,
-MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBIcon } from "mdbreact";
+import React, { Component, useState } from "react";
+import {
+  MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBDropdown,
+  MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBIcon
+} from "mdbreact";
 import { BrowserRouter as Router } from 'react-router-dom';
+import { Button, NavDropdown, Nav, Navbar, Form, FormControl, Modal } from 'react-bootstrap';
+import logo from './bb.jpg';
+import LoginComponent from '../login'
+import RegisterComponent from "../register";
+export default function Header() {
+  const [loginModal, setShowLoginModal] = useState(false);
+  const [registerModal, setShowRegisterModal] = useState(false);
 
-class Header extends Component {
-state = {
-  isOpen: false
-};
+  const handleCloseLoginModal = () => setShowLoginModal(false);
+  const handleShowLoginModal = () => setShowLoginModal(true);
 
-toggleCollapse = () => {
-  this.setState({ isOpen: !this.state.isOpen });
-}
-
-render() {
+  const handleCloseRegisterModal = () => setShowRegisterModal(false);
+  const handleShowRegisterModal = () => setShowRegisterModal(true);
   return (
-    <Router>
-      <MDBNavbar color="default-color" dark expand="md">
-        <MDBNavbarBrand>
-          <strong className="white-text">Navbar</strong>
-        </MDBNavbarBrand>
-        <MDBNavbarToggler onClick={this.toggleCollapse} />
-        <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
-          <MDBNavbarNav left>
-            <MDBNavItem active>
-              <MDBNavLink to="#!">Home</MDBNavLink>
-            </MDBNavItem>
-            <MDBNavItem>
-              <MDBNavLink to="#!">Features</MDBNavLink>
-            </MDBNavItem>
-            <MDBNavItem>
-              <MDBNavLink to="#!">Pricing</MDBNavLink>
-            </MDBNavItem>
-            <MDBNavItem>
-              <MDBDropdown>
-                <MDBDropdownToggle nav caret>
-                  <div className="d-none d-md-inline">Dropdown</div>
-                </MDBDropdownToggle>
-                <MDBDropdownMenu className="dropdown-default">
-                  <MDBDropdownItem href="#!">Action</MDBDropdownItem>
-                  <MDBDropdownItem href="#!">Another Action</MDBDropdownItem>
-                  <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
-                  <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
-                </MDBDropdownMenu>
-              </MDBDropdown>
-            </MDBNavItem>
-          </MDBNavbarNav>
-          <MDBNavbarNav right>
-            <MDBNavItem>
-              <MDBNavLink className="waves-effect waves-light" to="#!">
-                <MDBIcon fab icon="twitter" />
-              </MDBNavLink>
-            </MDBNavItem>
-            <MDBNavItem>
-              <MDBNavLink className="waves-effect waves-light" to="#!">
-                <MDBIcon fab icon="google-plus-g" />
-              </MDBNavLink>
-            </MDBNavItem>
-            <MDBNavItem>
-              <MDBDropdown>
-                <MDBDropdownToggle nav caret>
-                  <MDBIcon icon="user" />
-                </MDBDropdownToggle>
-                <MDBDropdownMenu className="dropdown-default">
-                  <MDBDropdownItem href="#!">Action</MDBDropdownItem>
-                  <MDBDropdownItem href="#!">Another Action</MDBDropdownItem>
-                  <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
-                  <MDBDropdownItem href="#!">Something else here</MDBDropdownItem>
-                </MDBDropdownMenu>
-              </MDBDropdown>
-            </MDBNavItem>
-          </MDBNavbarNav>
-        </MDBCollapse>
-      </MDBNavbar>
-    </Router>
-    );
-  }
-}
+    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+      <Navbar.Brand href="#home">
+        <img
+          alt=""
+          src={logo}
+          width="30"
+          height="30"
+          className="d-inline-block align-top"
+        />{' '}
+      React Bootstrap
+    </Navbar.Brand>
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+      <Navbar.Collapse id="responsive-navbar-nav">
+        <Nav className="mr-auto">
+          <Nav.Link href="#pricing"></Nav.Link>
+          <Nav.Link href="#features">Donation</Nav.Link>
+          <Nav.Link href="#pricing">Change theme</Nav.Link>
+          <NavDropdown title="Price" id="collasible-nav-dropdown">
+            <NavDropdown.Item href="#action/3.1">Free</NavDropdown.Item>
+            <NavDropdown.Item href="#action/3.2">Free-Ad</NavDropdown.Item>
+            <NavDropdown.Item href="#action/3.3">Not-Free</NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item href="#action/3.4">All</NavDropdown.Item>
+          </NavDropdown>
+        </Nav>
+        <Form inline>
+          <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+          <Button variant="outline-primary">Search</Button>
+        </Form>
+        <Nav>
+          <Form inline>
+            <Button variant="outline-primary" onClick={handleShowLoginModal}>Login</Button>
+            <Modal show={loginModal} onHide={handleCloseLoginModal}>
+            <LoginComponent closer={handleCloseLoginModal} registerOpenHandler={handleShowRegisterModal}/>
+             
+            </Modal>
+          </Form>
+          <Form inline>
+            <Button variant="outline-primary" onClick={handleShowRegisterModal}>Register</Button>
+            <Modal show={registerModal} onHide={handleCloseRegisterModal}>
+              <RegisterComponent closer={handleCloseRegisterModal} loginOpenHandler={handleShowLoginModal}/>
+            </Modal>
+          </Form>
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
+  );
 
-export default Header;
+}
