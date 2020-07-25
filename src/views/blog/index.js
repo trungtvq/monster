@@ -20,6 +20,7 @@ import {TooltipComponent, PopoverComponent, OverlayComponent} from '../../compon
 import { ToastContainer, toast } from 'react-toastify';
 import SunEditorComponent from '../../component/editor/sun'
 import {Popover, Button, Modal} from 'react-bootstrap'
+import { Pagable } from '../../component/pagable';
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
     marginTop: theme.spacing(3),
@@ -114,7 +115,9 @@ export default function Blog() {
   return (
     <React.Fragment>
       <Header />
-    
+      <Pagable content={ <p> My Other Contents </p>}></Pagable>
+     
+
       <SunEditorComponent />
       <TooltipComponent />
       <PopoverComponent placement="right"/>

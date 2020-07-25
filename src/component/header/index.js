@@ -8,8 +8,8 @@ import { GetTheme } from '../../assets/theme'
 import { faSignInAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons'
 import { faThemeisle } from '@fortawesome/free-brands-svg-icons'
 import { BrowserRouter as Router } from 'react-router-dom';
-import { Button, NavDropdown, Nav, Navbar, Form, FormControl, Modal, Spinner } from 'react-bootstrap';
-import logo from './bb.jpg';
+import { Button, NavDropdown, Nav, Navbar, Form, FormControl, Modal, Spinner,Image  } from 'react-bootstrap';
+import logo from './logo500300.png';
 import LoginComponent from '../login'
 import RegisterComponent from "../register";
 export default function Header() {
@@ -25,14 +25,10 @@ export default function Header() {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Navbar.Brand href="#home">
-        <img
-          alt=""
-          src={logo}
-          width="30"
-          height="30"
-          className="d-inline-block align-top"
-        />{' '}
-      React Bootstrap
+      <Image src={logo} width={80}
+    height={48} fluid />
+       
+      Anything
     </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">

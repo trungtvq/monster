@@ -19,7 +19,6 @@ class SunEditorComponent extends React.Component {
       
         return (
             <div>
-                <p> My Other Contents </p>
                 <SunEditor 
                 onChange={this.handleChange}
                 width="100%"
