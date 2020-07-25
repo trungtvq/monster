@@ -1,6 +1,5 @@
 #!/bin/bash
-git pull
-docker-compose build
-docker-compose push
-docker service rm  MONSTER_frontend
-docker stack deploy --compose-file.yml docker-compose MONSTER
+ssh trungtvq@vphim.co "cd /home/trungtvq/monster && git pull && docker-compose build"
+ssh trungtvq@vphim.co "cd /home/trungtvq/monster && docker-compose push"
+ssh trungtvq@vphim.co "cd /home/trungtvq/monster && docker service rm  MONSTER_frontend"
+ssh trungtvq@vphim.co "cd /home/trungtvq/monster && docker stack deploy --compose-file.yml docker-compose.yml MONSTER"
