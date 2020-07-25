@@ -1,6 +1,7 @@
 import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
+import { ButtonGroup } from 'react-bootstrap'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -13,7 +14,11 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import RegisterComponent from '../register';
-
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
+import { GoogleLogin } from 'react-google-login';
+import IconButton from '@material-ui/core/IconButton';
+import { FcGoogle } from 'react-icons/fc';
+import { FiFacebook } from 'react-icons/fi'
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -45,27 +50,45 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  root: {
+    flexGrow: 1,
+  },
 }));
 
-const openAnotherModal = (closer, opener) =>{
-    closer()
-    opener()
+const openAnotherModal = (closer, opener) => {
+  closer()
+  opener()
 }
 
-const LoginComponent=(props)=> {
+const LoginComponent = (props) => {
   const classes = useStyles();
   let closer = props.closer
   let registerOpenHandler = props.registerOpenHandler
+  const responseFacebook = (response) => {
+    console.log(response);
+  }
+  const responseGoogle = (response) => {
+    console.log(response);
+  }
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign in
+
+
+        <Button
+          variant="contained"
+          color="primary"
+          disabled
+          className={classes.button}
+          startIcon={<Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>}
+        >
+          <Typography component="h1" variant="h5">
+            Sign in
         </Typography>
+        </Button>
         <form className={classes.form} noValidate>
           <TextField
             variant="outlined"
@@ -89,10 +112,7 @@ const LoginComponent=(props)=> {
             id="password"
             autoComplete="current-password"
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
+
           <Button
             type="submit"
             fullWidth
@@ -103,17 +123,53 @@ const LoginComponent=(props)=> {
             Sign In
           </Button>
           <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
+            <Grid component="span" m={1}>
+              <ButtonGroup className="mr-2" aria-label="Basic example">
+                <Button variant="secondary">
+                  <FacebookLogin
+                    style={{ background: "blue", fontSize: 5 }}
+                    appId="287813625551814"
+                    autoLoad={false}
+                    fields="name,email,picture"
+                    callback={responseFacebook}
+                    render={renderProps => (
+                      <IconButton color="primary" aria-label="upload picture" component="span" onClick={renderProps.onClick}>
+                        <FiFacebook />
+                      </IconButton>
+                    )}
+                  />
+                </Button>
+                <Button disabled>
+                  or
+                </Button>
+                <Button variant="secondary">
+                  <GoogleLogin
+                    clientId="595655941041-29v7d0ta38dfkbbuciftjipido1rt5at.apps.googleusercontent.com"
+                    render={renderProps => (
+                      <IconButton color="primary" aria-label="upload picture" component="span" onClick={renderProps.onClick}>
+                        <FcGoogle />
+                      </IconButton>
+                    )}
+                    onSuccess={responseGoogle}
+                    onFailure={responseGoogle}
+
+                    cookiePolicy={'single_host_origin'}
+                  /></Button>
+              </ButtonGroup>
+
             </Grid>
             <Grid item>
-            <Link onClick={() => openAnotherModal(closer, registerOpenHandler)} variant="body2">
-            
-            {"Don't have an account? Sign Up"}
-              </Link>
-            
+
+            </Grid>
+            <Grid item xs>
+              <Button variant="outlined" color="secondary">
+                Forgot password?
+              </Button>
+            </Grid>
+            <Grid className={classes.form}  >
+              <Button variant="contained" fullWidth className={classes.submit} onClick={() => openAnotherModal(closer, registerOpenHandler)} variant="body2">
+                {"Don't have an account, Sign Up"}
+              </Button>
             </Grid>
           </Grid>
         </form>

@@ -17,6 +17,8 @@ import post2 from './blog-post.2.md';
 import post3 from './blog-post.3.md';
 import SpacingGrid from '../../component/list/spacing_grid';
 import {TooltipComponent, PopoverComponent, OverlayComponent} from '../../component/button/overlay';
+import { ToastContainer, toast } from 'react-toastify';
+import SunEditorComponent from '../../component/editor/sun'
 import {Popover, Button, Modal} from 'react-bootstrap'
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
@@ -112,6 +114,8 @@ export default function Blog() {
   return (
     <React.Fragment>
       <Header />
+    
+      <SunEditorComponent />
       <TooltipComponent />
       <PopoverComponent placement="right"/>
       <OverlayComponent component={btn} render={popover} />

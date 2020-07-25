@@ -59,12 +59,19 @@ export default function RegisterComponent(props) {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign up
+      <Button
+          variant="contained"
+          color="primary"
+          disabled
+          className={classes.button}
+          startIcon={<Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>}
+        >
+          <Typography component="h1" variant="h5">
+            Sign in
         </Typography>
+        </Button>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
