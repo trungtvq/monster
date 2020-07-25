@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import Blog from "../../blog";
 class Home extends Component {
     render() {
         return (
-            <div>home here</div>)
+            <Blog />
+        )
         }
     }
     export default Home
