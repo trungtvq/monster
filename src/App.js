@@ -11,7 +11,6 @@ import { ThemeContextProvider } from './context/ThemeContext';
 import { AuthContextProvider } from './context/AuthContext';
 import { CounterContextProvider } from './context/CounterContext';
 import 'react-toastify/dist/ReactToastify.css';
-
 export class App extends Component {
   render() {
     return (

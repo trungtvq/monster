@@ -21,6 +21,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import SunEditorComponent from '../../component/editor/sun'
 import {Popover, Button, Modal} from 'react-bootstrap'
 import { Pagable } from '../../component/pagable';
+import NotificationButton from '../../services/firebase/button'
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
     marginTop: theme.spacing(3),
@@ -115,6 +116,7 @@ export default function Blog() {
   return (
     <React.Fragment>
       <Header />
+      <NotificationButton>nani</NotificationButton>
       <Pagable content={ <p> My Other Contents </p>}></Pagable>
      
 
