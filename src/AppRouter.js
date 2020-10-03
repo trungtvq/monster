@@ -6,6 +6,8 @@ import person from './views/member/person';
 import Blog from './views/blog';
 import DardTheme from './views/test/DardTheme';
 import LightTheme from './views/test/LightThems';
+import NotFound from './views/static_page'
+import TextPage from './views/static_page/text_page'
 
 class AppRouter extends Component {
     render() {
@@ -17,6 +19,8 @@ class AppRouter extends Component {
                     <Route exact path="/blog" name="blog" component={Blog} />
                     <Route exact path="/dark" name="blog" component={DardTheme} />
                     <Route exact path="/light" name="blog" component={LightTheme} />
+                    <Route exact path="/text" name="text" component={TextPage} />
+                    <Route exact path="/notfound" name="notfound" component={NotFound} />
 
                 </Switch>
             </BrowserRouter>
